@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listings</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLQ_SLADD8-sJleu8eItxkjPR-6q7QtLw&libraries=places"></script>
+    <script src="../static/js/map.js"></script>
+</head>
+<body>
+    <header>
+        <!-- Your header content goes here -->
+        <div class="nav-elements">
+            <div class="logo">
+                <a href="{{ url_for('views.index') }}">
+                    <img src="../static/image/logo.png" alt="Website Logo"></a>
+            </div>
+            <div class="bx bx-menu" id="menu-icon"></div>
+
+            <div class="nav_links">
+                <a href="{{ url_for('views.index') }}">Home</a>
+                <a>|</a>
+                <a href="{{ url_for('views.listings') }}" class="active">Listings</a>
+                <a>|</a>
+                <a href="#">Log in</a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <!-- section for main -->
+        <section class="list_map">
+            <div class="lists">
+                <div class="list_top">
+                    <div class="nav_items">
+                        <form method="POST" action="{{ url_for('views.listings') }}" class="search-form">
+                            {{ form.csrf_token }}
+                            <input type="text" class="search" name="desired_location" placeholder="Map Location: Enter location and press Enter">
+                            <div class="btn-box">
+                                <a href="#" class="btn">Max Price</a>
+                                <a href="#" class="btn">Beds</a>
+                                <a href="#" class="btn">Filters</a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="info">
+                        <p>{{ properties|length }} properties</p>
+                        <p>Sort by: <span>Best Match</span></p>
+                    </div>
+                </div>
+                <div class="list_down">
+                    <ul class="property-list">
+    {% for property in properties %}
+        <li class="property-item">
+            <img src="data:image/jpeg;base64,{{ property.image_base64 }}" alt="{{ property.location }}">
+            <h3>{{ property.location }}</h3>
+            <p>Property Type: {{ property.property_type }}</p>
+            <p>Number of Beds: {{ property.number_of_beds }}</p>
+            <p>Price: {{ property.price }}</p>
+            <!-- Add more property details as needed -->
+        </li>
+    {% endfor %}
+</ul>
+                </div>
+            </div>
+            <div class="map" id="map"></div>
+        </section>
+    </main>
+</body>
+</html>

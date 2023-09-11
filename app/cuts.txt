@@ -1,0 +1,572 @@
+    # form = PropertyForm()
+
+    # if form.validate_on_submit():
+    #         #
+    #         # Extract form data
+    #         first_name = form.first_name.data
+    #         last_name = form.last_name.data
+    #         landlord_address = form.landlord_name.data
+    #         property_type = form.property_type.data
+    #         number_of_beds = form.number_of_beds.data
+    #         location = form.location.data
+    #         state = form.state.data
+    #         lga = form.lga.data
+    #         street = form.street.data
+    #         price = float(form.price.data)  # Convert the price to float
+    #         youtube_links = form.youtube_links.data
+    #
+    #         image_file = form.image_upload.data  # Access the uploaded file
+    #         print(first_name, last_name, landlord_address, property_type, number_of_beds, location, state, lga,street, price, youtube_links, image_file)
+
+            # if image_file:
+            #     # Read binary image data
+            #     image_data = image_file.read()
+            #
+            #     # Create a new Property object using the form data, including the image data
+            #     new_property = Property(
+            #         landlord_id=current_user.id,
+            #         first_name=first_name,
+            #         last_name=last_name,
+            #         landlord_address=landlord_address,
+            #         property_type=property_type,
+            #         number_of_beds=number_of_beds,
+            #         location=location,
+            #         state=state,
+            #         lga=lga,
+            #         street=street,
+            #         price=price,
+            #         image_data=image_data,  # Store binary image data
+            #         youtube_links=youtube_links,
+            #         timestamp=datetime.utcnow()
+            #     )
+            #
+            #     # Add the Property object to the database session and commit
+            #     db.session.add(new_property)
+            #     db.session.commit()
+    #
+    #         flash('Property added!', category='success')
+    #         return redirect(url_for('views.index'))
+    #
+    #
+    #
+    # # If there are validation errors, show them in the flash message
+    # for field, errors in form.errors.items():
+    #     for error in errors:
+    #         flash(f'Error in {getattr(form, field).label.text}: {error}', category='danger')
+    #
+    # return render_template('PropertyForm.html', form=form)
+
+
+
+
+<fieldset>
+            <legend>Basic Information</legend>
+            <label for="first-name">First Name:</label>
+            <input type="text" id="first-name" name="first_name" required>
+            <label for="last-name">Last Name:</label>
+            <input type="text" id="last-name" name="last_name" required>
+
+            <label for="landlord-name">Address:</label>
+            <input type="text" id="landlord-name" name="landlord_name" required>
+            <!-- Add more basic information fields here -->
+        </fieldset>
+
+        <!-- Property Information -->
+        <fieldset>
+            <legend>Property Information</legend>
+            <label for="property-type">Property Type:</label>
+            <select id="property-type" name="property_type">
+                <option value="duplex">Duplex</option>
+                <option value="bungalow">Bungalow</option>
+                <option value="apartment">Apartment</option>
+                <!-- Add more property type options here -->
+            </select>
+
+            <label for="numberofbeds">Number of Beds:</label>
+            <select id="numberofbeds" name="number_of_beds">
+                <option value="selfcontain">Self-Contain</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="other">Other</option>
+            </select>
+
+            <!-- Add more property information fields here -->
+        </fieldset>
+
+        <!-- Location Information -->
+        <fieldset>
+            <legend>Location Information</legend>
+            <label for="location">Property Address:</label>
+            <input type="text" id="location" name="location" required>
+
+            <label for="state">State:</label>
+            <select id="state" name="state">
+                <!-- State options will be populated dynamically -->
+            </select>
+            <br><br>
+
+            <label for="lga">Local Government Area:</label>
+            <select id="lga" name="lga">
+                <!-- LGAs will be populated dynamically based on the selected state -->
+            </select>
+            <br><br>
+
+            <label for="street">Street Name:</label>
+            <input type="text" id="street" name="street">
+            <br><br>
+
+            <!-- Add more location information fields here -->
+        </fieldset>
+
+        <!-- Price Information -->
+        <fieldset>
+            <legend>Price of Property per Annum</legend>
+            <label for="price">Price:</label>
+            <input type="range" id="price" name="price" min="100000" max="1000000" step="1000" value="100000">
+            <output for="price" id="price-output">N100,000</output>
+
+            <!-- Add more price information fields here -->
+        </fieldset>
+
+        <!-- Image Upload -->
+        <fieldset>
+            <legend>Upload or Add Images</legend>
+            <input type="file" id="image-upload" name="image_upload" accept="image/*" multiple>
+        </fieldset>
+
+        <!-- Youtube Video Links -->
+        <fieldset>
+            <legend>Add Youtube Video Links</legend>
+            <label for="youtube-links">Youtube Video Links:</label>
+            <textarea id="youtube-links" name="youtube_links" rows="3"></textarea>
+        </fieldset>
+
+
+
+
+
+form = PropertyForm()
+
+if form.validate_on_submit():
+    # Extract form data
+    first_name = form.first_name.data
+    last_name = form.last_name.data
+    landlord_address = form.landlord_name.data
+    property_type = form.property_type.data
+    number_of_beds = form.number_of_beds.data
+    location = form.location.data
+    state = form.state.data
+    lga = form.lga.data
+    street = form.street.data
+    price = float(form.price.data)  # Convert the price to float
+    youtube_links = form.youtube_links.data
+
+    image_file = form.image_upload.data  # Access the uploaded file
+
+    if image_file:
+        # Read binary image data
+        image_data = image_file.read()
+
+        # Create a new Property object using the form data, including the image data
+        new_property = Property(
+            landlord_id=current_user.id,
+            first_name=first_name,
+            last_name=last_name,
+            landlord_address=landlord_address,
+            property_type=property_type,
+            number_of_beds=number_of_beds,
+            location=location,
+            state=state,
+            lga=lga,
+            street=street,
+            price=price,
+            image_data=image_data,  # Store binary image data
+            youtube_links=youtube_links,
+            timestamp=datetime.utcnow()
+        )
+
+        # Add the Property object to the database session and commit
+        db.session.add(new_property)
+        db.session.commit()
+
+        flash('Property added!', category='success')
+        return redirect(url_for('views.index'))
+
+# If there are validation errors, show them in the flash message
+for field, errors in form.errors.items():
+    for error in errors:
+        flash(f'Error in {getattr(form, field).label.text}: {error}', category='danger')
+
+return render_template('PropertyForm.html', form=form)
+
+
+
+first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        landlord_address = request.form.get('landlord_address')  # Correct the form field name
+        property_type = request.form.get('property_type')
+        number_of_beds = request.form.get('number_of_beds')
+        location = request.form.get('location')
+        state = request.form.get('state')
+        lga = request.form.get('lga')
+        street = request.form.get('street')
+        price = float(request.form.get('price'))
+        youtube_links = request.form.get('youtube_links')
+        image_file = request.files.get('image_upload')  # Use request.files to access uploaded files
+
+        if image_file:
+            # Read binary image data
+            image_data = image_file.read()
+            # Create a new Property object using the form data, including the image data
+            new_property = Property(
+                landlord_id=current_user.id,
+                first_name=first_name,
+                last_name=last_name,
+                landlord_address=landlord_address,
+                property_type=property_type,
+                number_of_beds=number_of_beds,
+                location=location,
+                state=state,
+                lga=lga,
+                street=street,
+                price=price,
+                image_data=image_data,
+                youtube_links=youtube_links,
+                timestamp=datetime.utcnow()
+            )
+
+            # Add the Property object to the database session and commit
+            db.session.add(new_property)
+            db.session.commit()
+
+            flash('Property added!', category='success')
+            return redirect(url_for('views.index'))
+
+    return render_template('PropertyForm.html')
+
+
+
+INIT FILE
+
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+from flask_wtf.csrf import CSRFProtect
+import os
+import logging
+from logging.handlers import RotatingFileHandler
+
+db = SQLAlchemy()
+DB_NAME = "rently_web.db"
+
+csrf = CSRFProtect()
+
+
+def create_app():
+    app = Flask(__name__)
+    app.config['SECRET_KEY'] = os.urandom(32)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://rently_admin:rently@localhost/rently_web'
+    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_pre_ping': True}
+    app.config['UPLOAD_FOLDER'] = 'image_uploads'
+    app.config['SQLALCHEMY_ECHO'] = True
+
+    db.init_app(app)  # Initialize SQLAlchemy
+
+    # Initialize CSRF protection
+    csrf.init_app(app)
+
+    # Configure logging
+    if not app.debug:
+        log_handler = RotatingFileHandler('error.log', maxBytes=10240, backupCount=10)
+        log_handler.setLevel(logging.ERROR)
+        app.logger.addHandler(log_handler)
+
+    # Import and register blueprints
+    from .views import views
+    from .auth import auth
+    app.register_blueprint(views, url_prefix='/')
+    app.register_blueprint(auth, url_prefix='/auth')
+
+    # Create database tables within the application context
+    with app.app_context():
+        db.create_all()
+
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_user(id):
+        from .models import User
+        return User.query.get(int(id))
+
+    return app
+
+
+def create_database(app):
+    if not os.path.exists(os.path.join(app.root_path, DB_NAME)):
+        with app.app_context():
+            db.create_all()
+            print('Created Database!')
+
+
+
+PROPERTYFORM.HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landlord Property Form</title>
+    <link rel="stylesheet" href="../static/css/PropertyForm.css">
+</head>
+<body>
+{% with messages = get_flashed_messages() %}
+  <ul class="flash-messages">
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endwith %}
+    <form class="property-form" id="form-section" method="POST" action="{{ url_for('views.create_property') }}" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <h2>Register Your Property</h2>
+        <!-- Basic Information -->
+<fieldset>
+    <legend>Basic Information</legend>
+    <label for="first-name">First Name:</label>
+    <input type="text" id="first-name" name="first_name" value="{{ form.first_name.data }}" required>
+    <label for="last-name">Last Name:</label>
+    <input type="text" id="last-name" name="last_name" value="{{ form.last_name.data }}" required>
+
+    <label for="landlord-name">Address:</label>
+    <input type="text" id="landlord-name" name="landlord_name" value="{{ form.landlord_name.data }}" required>
+    <!-- Add more basic information fields here -->
+</fieldset>
+
+<!-- Property Information -->
+<fieldset>
+    <legend>Property Information</legend>
+    <label for="property-type">Property Type:</label>
+    <select id="property-type" name="property_type">
+        <option value="duplex" {% if form.property_type.data == 'duplex' %}selected{% endif %}>Duplex</option>
+        <option value="bungalow" {% if form.property_type.data == 'bungalow' %}selected{% endif %}>Bungalow</option>
+        <option value="apartment" {% if form.property_type.data == 'apartment' %}selected{% endif %}>Apartment</option>
+        <!-- Add more property type options here -->
+    </select>
+
+    <label for="numberofbeds">Number of Beds:</label>
+    <select id="numberofbeds" name="number_of_beds">
+        <option value="selfcontain" {% if form.number_of_beds.data == 'selfcontain' %}selected{% endif %}>Self-Contain</option>
+        <option value="1" {% if form.number_of_beds.data == '1' %}selected{% endif %}>1</option>
+        <option value="2" {% if form.number_of_beds.data == '2' %}selected{% endif %}>2</option>
+        <option value="3" {% if form.number_of_beds.data == '3' %}selected{% endif %}>3</option>
+        <option value="4" {% if form.number_of_beds.data == '4' %}selected{% endif %}>4</option>
+        <option value="5" {% if form.number_of_beds.data == '5' %}selected{% endif %}>5</option>
+        <option value="other" {% if form.number_of_beds.data == 'other' %}selected{% endif %}>Other</option>
+    </select>
+
+    <!-- Add more property information fields here -->
+</fieldset>
+
+<!-- Location Information -->
+<fieldset>
+    <legend>Location Information</legend>
+    <label for="location">Property Address:</label>
+    <input type="text" id="location" name="location" value="{{ form.location.data }}" required>
+
+    <label for="state">State:</label>
+    <select id="state" name="state">
+        <!-- State options will be populated dynamically -->
+    </select>
+    <br><br>
+
+    <label for="lga">Local Government Area:</label>
+    <select id="lga" name="lga">
+        <!-- LGAs will be populated dynamically based on the selected state -->
+    </select>
+    <br><br>
+
+    <label for="street">Street Name:</label>
+    <input type="text" id="street" name="street" value="{{ form.street.data }}">
+    <br><br>
+
+    <!-- Add more location information fields here -->
+</fieldset>
+
+<!-- Price Information -->
+<fieldset>
+    <legend>Price of Property per Annum</legend>
+    <label for="price">Price:</label>
+    <input type="range" id="price" name="price" min="100000" max="1000000" step="1000" value="{{ form.price.data }}">
+    <output for="price" id="price-output">
+    {% if form.price.data is not none %}{{ form.price.data | format_currency }}{% endif %}
+    </output>
+    <!-- Add more price information fields here -->
+</fieldset>
+
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
+    </form>
+    <script src="../static/js/PropertyForm.js"></script>
+</body>
+</html>
+
+
+LISTINGS.HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"></script>
+    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+</head>
+<body>
+    <header>
+        <!-- Your header content goes here -->
+        <div class="nav-elements">
+            <div class="logo">
+                <a href="/templates/index.html">
+                    <img src="/static/image/logo.png" alt="Website Logo"></a>
+            </div>
+            <div class="bx bx-menu" id="menu-icon"></div>
+
+            <div class="nav_links">
+                <a href="/templates/index.html">Home</a>
+                <a>|</a>
+                <a href="#listings" class="active">Listings</a>
+                <a>|</a>
+                <a href="#">Log in</a>
+            </div>
+    </header>
+    <main>
+        <!-- section for main -->
+        <section class="list_map">
+            <div class="lists">
+                <div class="list_top">
+                    <a href="" class="nav-hist">Home > Listings</a>
+                    <div class="nav_items">
+                        <input type="text" class="search" placeholder="Map Location: Enter location and press Enter">
+                        <div class="btn-box">
+                            <a href="#" class="btn">Max Price</a>
+                            <a href="#" class="btn">Beds</a>
+                            <a href="#" class="btn">filters</a>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <p>10,000 properties</p>
+                        <p>Sort by: <span>Best Match</span></p>
+                    </div>
+                </div>
+                <div class="list_down"></div>
+            </div>
+            <div class="map" id="map"></div>
+        </section>
+    </main>
+</body>
+</html>
+
+
+
+
+index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rently</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <header>
+        <div class="nav-elements">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="../static/image/logo.png" alt="Website Logo">
+                </a>
+            </div>
+            <div class="bx bx-menu" id="menu-icon"></div>
+
+            <div class="nav_links">
+                <a href="#home" class="active">Home</a>
+                <a>|</a>
+                <a href="{{ url_for('auth.login') }}">Log in</a>
+                <a>|</a>
+                <a href="{{ url_for('views.create_property') }}">
+                    <img src="../static/image/home-2_icon.png" alt="Form" class="formicon">
+                </a>
+            </div>
+    </header>
+    <main>
+        <div class="image">
+            <img
+              class="modern-residential"
+              src="../static/image/Bg.png"
+            />
+        </div>
+        <div class="center-container">
+            <div class="bg-text-container">
+                <div class="bg-text">Discover, Connect, Rent.</div>
+            </div>
+            <form method="POST" action="{{ url_for('views.listings') }}">
+    {{ form.hidden_tag() }}
+    <div class="search-box">
+        <div class="input-container">
+            {{ form.desired_location.label }}
+            {{ form.desired_location(class="form-control", placeholder="Desired Location") }}
+            {{ form.submit(class="btn btn-primary", id="searchButton") }}
+        </div>
+    </div>
+</form>
+
+        </div>
+    </main>
+    <footer>
+    </footer>
+    <script src="../static/js/script.js"></script>
+</body>
+</html>
+
+LISTINGS
+@views.route('/listings', methods=['GET', 'POST'])
+def listings():
+    form = SearchForm()
+
+    if form.validate_on_submit():
+        desired_state = form.desired_location.data  # Use desired_location field for state input
+        print(f"Desired State: {desired_state}")  # Debugging: Print desired state
+
+        # Query the database for properties based on the desired state
+        properties = Property.query.filter_by(state=desired_state).all()
+        print(f"Properties found: {properties}")  # Debugging: Print properties found
+    else:
+        # If it's a GET request or form not submitted, display all properties (or some default listings)
+        properties = Property.query.all()
+
+    return render_template('listings.html', properties=properties, form=form)
+
+
+    <ul class="property-list">
+    {% for property in properties %}
+        <li class="property-item">
+            <img src="data:image/jpeg;base64,{{ property.image_base64 }}" alt="{{ property.location }}">
+            <h3>{{ property.location }}</h3>
+            <p>Property Type: {{ property.property_type }}</p>
+            <p>Number of Beds: {{ property.number_of_beds }}</p>
+            <p>Price: {{ property.price }}</p>
+            <!-- Add more property details as needed -->
+        </li>
+    {% endfor %}
+</ul>

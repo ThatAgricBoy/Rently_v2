@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landlord Property Form</title>
+    <link rel="stylesheet" href="../static/css/PropertyForm.css">
+</head>
+<body>
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<div class="alert alert-danger">
+    <ul>
+        {% for category, message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% endwith %}
+    <form class="property-form" id="form-section" method="POST" action="{{ url_for('views.create_property') }}" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <h2>Register Your Property</h2>
+
+        <!-- Basic Information -->
+        <fieldset>
+            <legend>Basic Information</legend>
+            <label for="first-name">First Name:</label>
+            <input type="text" id="first-name" name="first_name" required>
+            <label for="last-name">Last Name:</label>
+            <input type="text" id="last-name" name="last_name" required>
+            <label for="phone-number">Phone Number:</label>
+            <input type="tel" id="phone-number" name="phone_number" pattern="^\+(?:[0-9] ?){6,14}[0-9]$" placeholder="e.g., +1234567890" required>
+            <label for="landlord-name">Address:</label>
+            <input type="text" id="landlord-name" name="landlord_name" required>
+        </fieldset>
+
+        <!-- Property Information -->
+        <fieldset>
+            <legend>Property Information</legend>
+            <label for="property-type">Property Type:</label>
+            <select id="property-type" name="property_type">
+                <option value="duplex">Duplex</option>
+                <option value="bungalow">Bungalow</option>
+                <option value="apartment">Apartment</option>
+            </select>
+
+            <label for="numberofbeds">Number of Beds:</label>
+            <select id="numberofbeds" name="number_of_beds">
+                <option value="selfcontain">Self-Contain</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="other">Other</option>
+            </select>
+
+            <!-- Add more property information fields here -->
+        </fieldset>
+
+        <!-- Location Information -->
+        <fieldset>
+            <legend>Location Information</legend>
+            <label for="location">Property Address:</label>
+            <input type="text" id="location" name="location" required>
+
+            <label for="state">State:</label>
+            <select id="state" name="state" required>
+                <option value="" disabled selected>Select a State</option>
+                <!-- Add more state options here -->
+            </select>
+            <br><br>
+
+            <label for="lga">Local Government Area:</label>
+            <select id="lga" name="lga" required>
+                <option value="" disabled selected>Select an LGA</option>
+                <!-- LGAs will be populated dynamically based on the selected state -->
+            </select>
+            <br><br>
+
+            <label for="street">Street Name:</label>
+            <input type="text" id="street" name="street">
+            <br><br>
+
+            <!-- Add more location information fields here -->
+        </fieldset>
+
+        <!-- Price Information -->
+        <fieldset>
+            <legend>Price of Property per Annum</legend>
+            <label for="price">Price:</label>
+            <input type="range" id="price" name="price" min="100000" max="1000000" step="1000" value="100000">
+            <output for="price" id="price-output">N100,000</output>
+
+            <!-- Add more price information fields here -->
+        </fieldset>
+
+        <!-- Image Upload -->
+        <fieldset>
+            <legend>Upload or Add Images</legend>
+            <input type="file" id="image-upload" name="image_upload" accept="image/*" multiple>
+        </fieldset>
+
+        <!-- Youtube Video Links -->
+        <fieldset>
+            <legend>Add Youtube Video Links</legend>
+            <label for="youtube-links">Youtube Video Links:</label>
+            <textarea id="youtube-links" name="youtube_links" rows="3"></textarea>
+        </fieldset>
+
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
+    </form>
+    <script src="../static/js/PropertyForm.js"></script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rently - Discover, Connect, Rent</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <header>
+        <div class="nav-elements">
+            <div class="logo">
+                <a href="{{ url_for('views.index') }}">
+                    <img src="../static/image/logo.png" alt="Website Logo">
+                </a>
+            </div>
+            <div class="bx bx-menu" id="menu-icon"></div>
+
+            <div class="nav_links">
+                <a href="#home" class="active">Home</a>
+                <a>|</a>
+                <a href="{{ url_for('auth.login') }}">Log in</a>
+                <a>|</a>
+                <a href="{{ url_for('views.create_property') }}">
+                    <img src="../static/image/home-2_icon.png" alt="Form" class="formicon">
+                </a>
+                <a>|</a>
+                <a href="{{ url_for('auth.login') }}">Log out</a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="landing-content">
+            <div class="image">
+                <img class="modern-residential" src="../static/image/Bg.png" />
+            </div>
+            <div class="center-container">
+                <div class="bg-text-container">
+                    <div class="bg-text">Discover, Connect, Rent.</div>
+                </div>
+                <form method="POST" action="{{ url_for('views.listings') }}">
+                    {{ form.hidden_tag() }}
+                    <div class="search-box">
+                        <div class="input-container">
+                            {{ form.desired_location.label }}
+                            {{ form.desired_location(class="form-control", placeholder="Desired State") }}
+                            {{ form.submit(class="btn btn-primary", id="searchButton", value="Search Listings") }}
+                        </div>
+                        <div class="search-listings">
+                            <!-- Content for search listings goes here -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Add this code below your search form in the <main> section of your HTML -->
+        <section class="meet-the-team">
+            <h2>Meet the Team</h2>
+            <div class="team-member">
+                <img src="../static/image/ocheja.jpeg" alt="Team Member 1">
+                <div class="profile-summary">
+                    <h3>Ocheja Favour</h3>
+                    <p>Front-end Developer</p><br>
+                    <p>Ocheja is a talented front-end developer with a passion for creating beautiful and user-friendly interfaces.</p>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="../static/image/max.jpg" alt="Team Member 2">
+                <div class="profile-summary">
+                    <h3>Samuel John</h3>
+                    <p>Back-end Developer</p><br>
+                    <p>Samuel is an experienced back-end developer who specializes in building robust and scalable server-side solutions.</p>
+                </div>
+            </div>
+        </section>
+        <section class="features">
+    <h2>Key Features</h2>
+    <div class="feature">
+        <img src="../static/image/house-1239420_1280.jpg" alt="Feature 1">
+        <h3>No Agent Fees</h3>
+        <p>
+            With Rently, you can discover your dream rental
+            property without the added cost of agent fees.
+            Say goodbye to expensive middlemen and enjoy
+            a hassle-free search for your perfect home.
+        </p>
+    </div>
+    <div class="feature">
+        <img src="../static/image/the-search-for-a-house-4532392_1280.jpg" alt="Feature 2">
+        <h3>Detailed Property Insights</h3>
+        <p>
+            Get in-depth property insights at your fingertips.
+            From property types to the number of bedrooms and
+            amenities, Rently provides you with all the information
+            you need to make confident decisions about your next home.
+        </p>
+    </div>
+    <div class="feature">
+        <img src="../static/image/family-house-2844962_1280.jpg" alt="Feature 3">
+        <h3>Effortless Property Discovery</h3>
+        <p>
+            Rently simplifies your property search by letting you find the
+            perfect rental home with just a few clicks. No more endless
+            scrolling or sifting through listings—discover your ideal
+            property effortlessly.
+        </p>
+    </div>
+</section>
+        <!-- Add this section following the Feature section -->
+<section class="about-section">
+    <h2>Our Story</h2>
+    <div class="inspiration-container">
+    <p class="inspiration-story">
+        The inspiration behind Rently comes from the frustrating experiences many of us face
+        when searching for a new place to call home. I found myself paying hefty inspection fees
+        to view properties that didn't meet my preferences and dealing with numerous agents,
+        each adding their fees to the cost. Finally, when I discovered a property I loved, the
+        agent fees nearly equaled the rent itself. It was clear that there had to be a better way.
+    </p>
+        <p class="team-vision">
+        Our team dedicated three weeks to bring this vision to life, working collaboratively to
+        create a platform that makes finding your ideal rental property easier and more affordable.
+    </p>
+    </div>
+    <!-- Add links to team member profiles -->
+    <div class="team-links">
+        <a href="https://github.com/ocheja1" target="_blank">Ocheja Favour - GitHub</a><br>
+        <a href="https://github.com/thatagricboy" target="_blank">Samuel John - GitHub</a><br>
+        <!-- Add similar links for other team members -->
+    </div>
+    <!-- Add link to the project's GitHub repository -->
+    <div class="github-link">
+        <a href="https://github.com/rently" target="_blank">GitHub Repository</a>
+    </div>
+</section>
+
+    </main>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-logo">
+                <img src="../static/image/logo.png" alt="Rently Logo">
+            </div>
+            <div class="footer-links">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Portfolio</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <p>Contact Us:</p><br>
+                <p>Ocheja Favour <a href="https://github.com/ocheja1">Github</a></p><br>
+                <p>Samuel John <a href="https://github.com/thatagricboy">Github</a></p>
+            </div>
+            <div class="footer-social">
+                <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+    <script src="../static/js/script.js"></script>
+</body>
+</html>

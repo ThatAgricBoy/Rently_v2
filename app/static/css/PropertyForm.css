@@ -1,0 +1,177 @@
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+*{
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    scroll-behavior: smooth;  
+}
+
+.nav-elements{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+#menu-icon{
+    font-size: 3.6rem;
+    color: lightseagreen;
+    cursor: pointer;
+    display: none;
+}
+
+.nav_links{
+    display: flex; /* Use flex display to arrange links in a row */
+    gap: 15px; /* Add a gap of 20px between links */
+    margin-top: 70px;
+    margin-right: 4rem;
+}
+
+.nav_links a{
+    text-decoration: none; /* Remove underlines from links */
+    font-weight: bold; /* Set link text to bold */
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.nav_links a:hover,
+.nav_links a.active {
+    color: #4561EC;
+}
+
+.logo img{
+    width: 200px;
+    height: auto;
+    z-index: 2;   
+}
+
+
+
+.property-form {
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: black;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.property-form h2 {
+    /* margin-top: 0;
+    margin-left: 30px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+fieldset {
+    border: 1px solid #444;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+legend {
+    font-weight: bold;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select,
+input[type="tel"] { /* Include the input[type="tel"] for phone number input */
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+    margin-bottom: 10px; /* Add some space between inputs */
+}
+
+
+input[type="file"] {
+    background-color: #333;
+    color: #fff;
+    border: none;
+}
+
+button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+button[type="submit"]:hover {
+    background-color: white;
+    color: #000;
+}
+
+textarea {
+    resize: vertical;
+}
+
+
+/* Pricing */
+input[type="range"] {
+    width: 100%;
+    margin-top: 10px;
+    background-color: #4561EC;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 5px;
+    border-radius: 5px;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+#price-output {
+    display: block;
+    margin-top: 5px;
+}
