@@ -100,7 +100,7 @@ def listings():
             if property.image_data:
                 property.image_base64 = base64.b64encode(property.image_data).decode('utf-8')
 
-    return render_template('listings.html', properties=properties, form=form)
+    return render_template('list.html', properties=properties, form=form)
 
 
 

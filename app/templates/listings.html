@@ -51,17 +51,17 @@
                 </div>
                 <div class="list_down">
                     <ul class="property-list">
-    {% for property in properties %}
-        <li class="property-item">
-            <img src="data:image/jpeg;base64,{{ property.image_base64 }}" alt="{{ property.location }}">
-            <h3>{{ property.location }}</h3>
-            <p>Property Type: {{ property.property_type }}</p>
-            <p>Number of Beds: {{ property.number_of_beds }}</p>
-            <p>Price: {{ property.price }}</p>
-            <!-- Add more property details as needed -->
-        </li>
-    {% endfor %}
-</ul>
+                        {% for property in properties %}
+                            <li class="property-item">
+                                <img src="data:image/jpeg;base64,{{ property.image_base64 }}" alt="{{ property.location }}">
+                                <h3>{{ property.location }}</h3>
+                                <p>Property Type: {{ property.property_type }}</p>
+                                <p>Number of Beds: {{ property.number_of_beds }}</p>
+                                <p>Price: {{ property.price }}</p>
+                                <!-- Add more property details as needed -->
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
             <div class="map" id="map"></div>

@@ -1,32 +1,39 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.querySelector('.search');
+    // Get all elements with the class "search"
+    const searchInputs = document.querySelectorAll('.search');
     const geocoder = new google.maps.Geocoder();
     const mapElement = document.getElementById('map');
 
     const mapOptions = {
-        center: desiredLocation, // Use the desiredLocation variable as the center
-        zoom: 10,
+        center: { lat: 0, lng: 0 }, // Default center
+        zoom: 10, // Default zoom level
     };
 
     const map = new google.maps.Map(mapElement, mapOptions);
 
-    searchInput.addEventListener('keypress', function(event) {
-        if (event.key === 'Enter') {
-            geocodeAddress(searchInput.value, map);
-        }
+    // Add event listeners to all search input fields
+    searchInputs.forEach(function(searchInput) {
+        searchInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                const inputValue = searchInput.value;
+                console.log('Input value:', inputValue);
+                geocodeAddress(inputValue, map);
+            }
+        });
     });
 
     function geocodeAddress(address, map) {
-        geocoder.geocode({ 'address': address }, function(results, status) {
-            if (status === 'OK') {
-                const location = results[0].geometry.location;
-                map.setCenter(location);
-                // You can add a marker if you want
-                new google.maps.Marker({
-                    position: location,
-                    map: map,
-                });
-            } else {
+    console.log('Geocoding address:', address);
+    geocoder.geocode({ 'address': address }, function(results, status) {
+        console.log('Geocoding status:', status); // Log the status
+        if (status === 'OK') {
+            // ... Rest of your code
+        } else {
+            console.error('Geocode was not successful for the following reason: ' + status);
+        }
+    });
+}
+else {
                 console.error('Geocode was not successful for the following reason: ' + status);
             }
         });

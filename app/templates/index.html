@@ -44,14 +44,13 @@
                     <div class="search-box">
                         <div class="input-container">
                             {{ form.desired_location.label }}
-                            {{ form.desired_location(class="form-control", placeholder="Desired State") }}
+                            {{ form.desired_location(id="location-input", class="search form-control", placeholder="Desired State") }}
                             {{ form.submit(class="btn btn-primary", id="searchButton", value="Search Listings") }}
                         </div>
-                        <div class="search-listings">
-                            <!-- Content for search listings goes here -->
-                        </div>
+
                     </div>
                 </form>
+
             </div>
         </div>
         <!-- Add this code below your search form in the <main> section of your HTML -->
